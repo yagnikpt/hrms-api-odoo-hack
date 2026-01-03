@@ -5,6 +5,7 @@ from src.users.repo import UserRepository
 from src.users.schemas import UserCreate
 from src.users.utils import get_largest_serial_number_from_ids
 from src.core.security import hash_password
+from fastapi import HTTPException
 
 repo = UserRepository()
 
@@ -35,9 +36,11 @@ class UserService:
 
         new_user_id = f"{company_abbr}{first_name_two_initial}{last_name_two_initial}{current_year}{serial_str}"
 
-        user_existing = await repo.get_by_id(db, new_user_id)
+        user_existing = await repo.get_by_email(db, data.email)
         if user_existing:
-            raise Exception("User with generated ID already exists. Try again.")
+            raise HTTPException(
+                status_code=400, detail="User with email already exists."
+            )
 
         password_hash = hash_password(data.password)
 

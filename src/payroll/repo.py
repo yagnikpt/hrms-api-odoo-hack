@@ -1,6 +1,6 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
-from . import models, schemas
+from src.payroll import models, schemas
 
 
 async def get_payrolls(db: AsyncSession, skip: int = 0, limit: int = 100):

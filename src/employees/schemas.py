@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, time
 from uuid import UUID
 from pydantic import BaseModel, ConfigDict
 from src.users.schemas import UserCreate, UserOut
@@ -9,8 +9,8 @@ class EmployeeBase(BaseModel):
     job_title: str
     department: str
     address: str | None = None
-    check_in_time: str | None = None
-    check_out_time: str | None = None
+    check_in_time: time | None = None
+    check_out_time: time | None = None
 
 
 # Create request (Admin only)
@@ -26,8 +26,8 @@ class EmployeeUpdate(BaseModel):
     department: str | None = None
     address: str | None = None
     profile_picture_url: str | None = None
-    check_in_time: str | None = None
-    check_out_time: str | None = None
+    check_in_time: time | None = None
+    check_out_time: time | None = None
 
 
 # Response model
