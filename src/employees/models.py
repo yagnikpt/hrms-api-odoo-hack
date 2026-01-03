@@ -1,15 +1,23 @@
-from sqlalchemy import String, Date, Text, DateTime, Time, func
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy import String, Date, Text, DateTime, Time, func, ForeignKey
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 from uuid import UUID
 from datetime import datetime, date, time
 from src.db.base import Base
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from src.users.models import User
 
 
 class Employee(Base):
     __tablename__ = "employees"
 
     id: Mapped[UUID] = mapped_column(primary_key=True)
-    user_id: Mapped[str] = mapped_column(unique=True, index=True)
+    user_id: Mapped[str] = mapped_column(
+        ForeignKey("users.id"), unique=True, index=True
+    )
+    user: Mapped["User"] = relationship("User")
     job_title: Mapped[str] = mapped_column(String(100))
     department: Mapped[str] = mapped_column(String(100))
     address: Mapped[str | None] = mapped_column(Text)

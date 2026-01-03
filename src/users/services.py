@@ -53,6 +53,9 @@ class UserService:
 
         return await repo.create(db, user)
 
+    async def get_user_by_id(self, db, user_id: str) -> User | None:
+        return await repo.get_by_id(db, user_id)
+
     # async def update_profile(self, db, employee: Employee, data: EmployeeUpdate):
     #     for field, value in data.model_dump(exclude_unset=True).items():
     #         setattr(employee, field, value)

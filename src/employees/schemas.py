@@ -1,6 +1,7 @@
 from datetime import date
 from uuid import UUID
 from pydantic import BaseModel, ConfigDict
+from src.users.schemas import UserCreate, UserOut
 
 
 # Shared base
@@ -14,14 +15,15 @@ class EmployeeBase(BaseModel):
 
 # Create request (Admin only)
 class EmployeeCreate(EmployeeBase):
-    user_id: str
+    user: UserCreate
     date_of_joining: date
     profile_picture_url: str | None = None
 
 
 # Update request (limited fields)
 class EmployeeUpdate(BaseModel):
-    phone: str | None = None
+    job_title: str | None = None
+    department: str | None = None
     address: str | None = None
     profile_picture_url: str | None = None
     check_in_time: str | None = None
@@ -31,5 +33,6 @@ class EmployeeUpdate(BaseModel):
 # Response model
 class EmployeeOut(EmployeeBase):
     id: UUID
+    user: UserOut
 
     model_config = ConfigDict(from_attributes=True)
