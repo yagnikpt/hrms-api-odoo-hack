@@ -5,7 +5,9 @@ from src.users.schemas import UserCreate, UserOut
 from src.users.services import UserService
 from src.core.deps import (
     get_db,
+    admin_required,
 )
+from src.users.models import User
 
 router = APIRouter(
     prefix="/users",
@@ -23,6 +25,7 @@ service = UserService()
 async def create_employee(
     payload: UserCreate,
     db: AsyncSession = Depends(get_db),
+    admin: User = Depends(admin_required),
 ):
     return await service.create_user(db, payload)
 

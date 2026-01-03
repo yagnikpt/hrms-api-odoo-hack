@@ -1,6 +1,7 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 from datetime import date
-from typing import List, Optional
+from uuid import UUID
+
 
 class PayrollBase(BaseModel):
     pay_period_start: date
@@ -8,29 +9,14 @@ class PayrollBase(BaseModel):
     basic_salary: float
     deductions: float = 0.0
 
+
 class PayrollCreate(PayrollBase):
-    employee_id: int
+    employee_id: UUID
+
 
 class Payroll(PayrollBase):
     id: int
     net_pay: float
-    employee_id: int
+    employee_id: UUID
 
-    class Config:
-        orm_mode = True
-
-class EmployeeBase(BaseModel):
-    name: str
-    email: str
-    position: str
-    department: str
-
-class EmployeeCreate(EmployeeBase):
-    pass
-
-class Employee(EmployeeBase):
-    id: int
-    payrolls: List[Payroll] = []
-
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)

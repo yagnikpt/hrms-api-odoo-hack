@@ -1,27 +1,20 @@
-from sqlalchemy import Column, Integer, String, Float, Date, ForeignKey
-from sqlalchemy.orm import relationship
+from sqlalchemy import Integer, Float, Date, ForeignKey
+from sqlalchemy.orm import relationship, Mapped, mapped_column
 from src.db.base import Base
+from src.employees.models import Employee
+from uuid import UUID
+from datetime import date
 
-class Employee(Base):
-    __tablename__ = "employees"
-
-    id = Column(Integer, primary_key=True, index=True)
-    name = Column(String, index=True)
-    email = Column(String, unique=True, index=True)
-    position = Column(String)
-    department = Column(String)
-
-    payrolls = relationship("Payroll", back_populates="employee")
 
 class Payroll(Base):
     __tablename__ = "payrolls"
 
-    id = Column(Integer, primary_key=True, index=True)
-    employee_id = Column(Integer, ForeignKey("employees.id"))
-    pay_period_start = Column(Date)
-    pay_period_end = Column(Date)
-    basic_salary = Column(Float)
-    deductions = Column(Float, default=0.0)
-    net_pay = Column(Float)
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
+    employee_id: Mapped[UUID] = mapped_column(ForeignKey("employees.id"))
+    pay_period_start: Mapped[date] = mapped_column(Date)
+    pay_period_end: Mapped[date] = mapped_column(Date)
+    basic_salary: Mapped[float] = mapped_column(Float)
+    deductions: Mapped[float] = mapped_column(Float, default=0.0)
+    net_pay: Mapped[float] = mapped_column(Float)
 
-    employee = relationship("Employee", back_populates="payrolls")
+    employee: Mapped["Employee"] = relationship("Employee")

@@ -6,7 +6,9 @@ from src.employees.schemas import EmployeeCreate, EmployeeOut, EmployeeUpdate
 from src.employees.services import EmployeeService
 from src.core.deps import (
     get_db,
+    admin_required,
 )
+from src.users.models import User
 from src.employees.exceptions import EmployeeAlreadyExistsError
 
 router = APIRouter(
@@ -25,6 +27,7 @@ service = EmployeeService()
 async def create_employee(
     payload: EmployeeCreate,
     db: AsyncSession = Depends(get_db),
+    admin: User = Depends(admin_required),
 ):
     try:
         return await service.create_employee(db, payload)
@@ -53,6 +56,7 @@ async def update_employee(
     employee_id: UUID,
     payload: EmployeeUpdate,
     db: AsyncSession = Depends(get_db),
+    admin: User = Depends(admin_required),
 ):
     employee = await service.get_employee_by_id(db, employee_id)
     if not employee:
