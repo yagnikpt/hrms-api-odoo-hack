@@ -39,13 +39,13 @@ def upgrade() -> None:
             "created_at",
             sa.TIMESTAMP(timezone=True),
             nullable=False,
-            server_default=sa.text("now()"),
+            server_default=sa.text("CURRENT_TIMESTAMP"),
         ),
         sa.Column(
             "updated_at",
             sa.TIMESTAMP(timezone=True),
             nullable=False,
-            server_default=sa.text("now()"),
+            server_default=sa.text("CURRENT_TIMESTAMP"),
         ),
         sa.CheckConstraint("role IN ('EMPLOYEE', 'ADMIN')", name="ck_users_role"),
     )
@@ -70,13 +70,13 @@ def upgrade() -> None:
             "created_at",
             sa.TIMESTAMP(timezone=True),
             nullable=False,
-            server_default=sa.text("now()"),
+            server_default=sa.text("CURRENT_TIMESTAMP"),
         ),
         sa.Column(
             "updated_at",
             sa.TIMESTAMP(timezone=True),
             nullable=False,
-            server_default=sa.text("now()"),
+            server_default=sa.text("CURRENT_TIMESTAMP"),
         ),
         sa.ForeignKeyConstraint(["user_id"], ["users.id"], ondelete="CASCADE"),
     )
@@ -98,7 +98,7 @@ def upgrade() -> None:
             "created_at",
             sa.TIMESTAMP(timezone=True),
             nullable=False,
-            server_default=sa.text("now()"),
+            server_default=sa.text("CURRENT_TIMESTAMP"),
         ),
         sa.ForeignKeyConstraint(["employee_id"], ["employees.id"], ondelete="CASCADE"),
         sa.CheckConstraint(
@@ -137,7 +137,7 @@ def upgrade() -> None:
             "created_at",
             sa.TIMESTAMP(timezone=True),
             nullable=False,
-            server_default=sa.text("now()"),
+            server_default=sa.text("CURRENT_TIMESTAMP"),
         ),
         sa.Column("reviewed_at", sa.TIMESTAMP(timezone=True)),
         sa.ForeignKeyConstraint(["employee_id"], ["employees.id"], ondelete="CASCADE"),
@@ -176,7 +176,7 @@ def upgrade() -> None:
             "created_at",
             sa.TIMESTAMP(timezone=True),
             nullable=False,
-            server_default=sa.text("now()"),
+            server_default=sa.text("CURRENT_TIMESTAMP"),
         ),
         sa.ForeignKeyConstraint(["employee_id"], ["employees.id"], ondelete="CASCADE"),
         sa.UniqueConstraint(
@@ -202,7 +202,7 @@ def upgrade() -> None:
             "generated_at",
             sa.TIMESTAMP(timezone=True),
             nullable=False,
-            server_default=sa.text("now()"),
+            server_default=sa.text("CURRENT_TIMESTAMP"),
         ),
         sa.ForeignKeyConstraint(["employee_id"], ["employees.id"]),
         sa.UniqueConstraint(

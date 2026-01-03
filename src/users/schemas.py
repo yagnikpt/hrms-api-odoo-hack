@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import datetime
 from pydantic import BaseModel, ConfigDict
 
 
@@ -8,13 +8,11 @@ class UserBase(BaseModel):
     email: str
     role: str
     company: str
-    phone: str
-    created_at: date
+    phone: str | None = None
 
 
 # Create request (Admin only)
 class UserCreate(UserBase):
-    id: str
     password: str
 
 
@@ -27,5 +25,7 @@ class UserUpdate(BaseModel):
 # Response model
 class UserOut(UserBase):
     id: str
+    created_at: datetime
+    updated_at: datetime
 
     model_config = ConfigDict(from_attributes=True)
