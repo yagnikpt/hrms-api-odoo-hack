@@ -10,7 +10,6 @@ dependencies = [
     "fastapi[standard]>=0.128.0",
     "passlib>=1.7.4",
     "psycopg[binary]>=3.3.2",
-    "pydantic>=2.12.5",
     "pyjwt>=2.10.1",
     "python-dotenv>=1.2.1",
     "sqlalchemy>=2.0.45",
