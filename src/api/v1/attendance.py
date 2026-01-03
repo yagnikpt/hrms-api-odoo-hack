@@ -19,7 +19,7 @@ service = AttendanceService()
 
 @router.post("/check-in", response_model=AttendanceOut)
 async def check_in(
-    data: CheckInRequest,  # Include explicit body even if empty for future extensibility
+    data: CheckInRequest,
     db: AsyncSession = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
