@@ -1,4 +1,4 @@
-from sqlalchemy import String, Date, Text, DateTime, Time, func, ForeignKey
+from sqlalchemy import String, Date, Text, DateTime, Time, func, ForeignKey, Float
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from uuid import UUID
 from datetime import datetime, date, time
@@ -20,6 +20,7 @@ class Employee(Base):
     user: Mapped["User"] = relationship("User")
     job_title: Mapped[str] = mapped_column(String(100))
     department: Mapped[str] = mapped_column(String(100))
+    base_salary: Mapped[float] = mapped_column(Float, default=0.0)
     address: Mapped[str | None] = mapped_column(Text)
     profile_picture_url: Mapped[str | None] = mapped_column(Text)
     date_of_joining: Mapped[date] = mapped_column(Date)
