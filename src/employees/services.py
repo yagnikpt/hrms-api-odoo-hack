@@ -17,13 +17,13 @@ class EmployeeService:
         employee = Employee(
             id=uuid4(),
             user_id=data.user_id,
-            employee_code=data.employee_code,
-            full_name=data.full_name,
             job_title=data.job_title,
             department=data.department,
-            phone=data.phone,
             address=data.address,
             date_of_joining=data.date_of_joining,
+            profile_picture_url=data.profile_picture_url,
+            check_in_time=data.check_in_time,
+            check_out_time=data.check_out_time,
         )
 
         return await repo.create(db, employee)

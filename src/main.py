@@ -1,15 +1,9 @@
-from typing import Union
-
 from fastapi import FastAPI
 
-app = FastAPI()
+from src.api.v1.router import api_v1_router
 
-
-@app.get("/")
-def read_root():
-    return {"Hello": "World"}
-
-
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: Union[str, None] = None):
-    return {"item_id": item_id, "q": q}
+app = FastAPI(title="Dayflow API")
+app.include_router(
+    api_v1_router,
+    prefix="/api/v1",
+)

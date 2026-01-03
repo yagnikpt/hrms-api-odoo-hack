@@ -4,10 +4,12 @@ from pydantic import BaseModel, ConfigDict
 
 # Shared base
 class UserBase(BaseModel):
+    full_name: str
     email: str
     role: str
     company: str
     phone: str
+    created_at: date
 
 
 # Create request (Admin only)
